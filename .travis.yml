@@ -1,0 +1,16 @@
+sudo: required
+
+language: generic
+
+services: 
+  - docker
+
+before_install:
+  - echo "start creating an iamge with dockerfile"
+  - docker build -t dmlfid1348/docker-react-app -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true dmlfid1348/docker-react-app npm run test -- --coverage
+
+after_success:
+  - echo "Test success"
